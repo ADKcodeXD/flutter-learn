@@ -9,22 +9,34 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          width: 300,
-          height: 600,
-          decoration: BoxDecoration(
-            color: Colors.yellow,
-            border: Border.all(
-              color: Colors.black,
-              width: 2,
+    return MaterialApp(
+        home: Scaffold(
+            body: Center(
+                child: ListView(
+      padding: const EdgeInsets.all(10),
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+        Container(
+          width: 500,
+          height: 100,
+          color: Colors.blue,
+          child: Center(
+            child: ListView(
+              children: const <Widget>[
+                ListTile(
+                  title: Text('Item 1'),
+                  subtitle: Text('Subtitle 1'),
+                ),
+              ],
             ),
           ),
-          padding: const EdgeInsets.all(10), // 内边距
-          alignment: Alignment.center, // 内容居中
-          child: Image.asset(
-              "assets/images/touxiang.jpg",
-              fit: BoxFit.fitHeight)), // 图片
-    );
+        ),
+        Container(
+          width: 500,
+          height: 100,
+          color: Colors.red,
+        )
+      ],
+    ))));
   }
 }
