@@ -23,42 +23,40 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeContent extends StatelessWidget {
-  List list = [];
-  HomeContent({super.key}) {
-    for (int i = 0; i < 100; i++) {
-      list.add("我是第$i条数据");
-    }
+class HomeContent extends StatefulWidget {
+  const HomeContent({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeContentState();
   }
+}
+
+class _HomeContentState extends State<HomeContent> {
+  num count = 0;
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            padding: EdgeInsets.all(10),
-            color: Colors.yellow[50],
-            width: 500,
-            height: 500,
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 150,
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    color: Colors.red,
-                  ),
-                ),
-                Container(
-                  height: 180,
-                  width: 180,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: 160,
-                  width: 160,
-                  color: Colors.yellow,
-                ),
-              ],
-            )));
+    // TODO: implement build
+    return Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+            Text('点击次数$count'),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(25)),
+              ),
+              child: const Text(
+                '增加',
+                style: TextStyle(color: Colors.blue),
+              ),
+              onPressed: () {
+                setState(() {
+                  count++;
+                });
+              },
+            ),
+          ],
+        ));
   }
 }
