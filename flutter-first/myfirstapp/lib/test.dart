@@ -8,14 +8,19 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start
+    return Center(
+      child: Container(
+        child: Text('Hello World'),
+        width: 300,
+        height: 300,
+        decoration: BoxDecoration(
+          color: Colors.red,
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
           ),
         ),
-      ]));
+      ),
+    );
   }
 }
