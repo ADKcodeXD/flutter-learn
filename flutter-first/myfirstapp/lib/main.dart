@@ -10,55 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Tabs(),
+      home: HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
-      ),
-    );
-  }
-}
-
-class Tabs extends StatefulWidget {
-  const Tabs({Key? key}) : super(key: key);
-  @override
-  State<StatefulWidget> createState() {
-    return _TabsState();
-  }
-}
-
-class _TabsState extends State<Tabs> {
-  List<Widget> list = [HomePage(), MyPage(), AboutPage()];
-  int _currentIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('这是导航栏'),
-      ),
-      body: list[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        fixedColor: Colors.blue,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '首页',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: '列表',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.info),
-            label: '关于',
-          ),
-        ],
       ),
     );
   }
@@ -68,34 +22,52 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.red,
-      child: const Text('这是首页'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('首页'),
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        height: double.infinity,
+        color: Colors.blue,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('首页'),
+            ElevatedButton(
+              child: const Text('跳转到第二页'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MySearchPage(title: '这是搜索');
+                    }, //括号里可以传参
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class MyPage extends StatelessWidget {
-  const MyPage({Key? key}) : super(key: key);
+class MySearchPage extends StatelessWidget {
+  final String title;
+  const MySearchPage({Key? key, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.blueGrey,
-      child: const Text('这是我的页面'),
-    );
-  }
-}
-
-class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: Colors.green,
-      child: const Text('关于我'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('搜索页'),
+      ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.red,
+        child: Text('搜索页$title'),
+      ),
     );
   }
 }
