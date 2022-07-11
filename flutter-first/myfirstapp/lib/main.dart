@@ -34,23 +34,31 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            //固定大小的子元素
-            Container(
-              width: 100,
-              height: 400,
-              color: Colors.red,
-            ),
-            Container(
-              width: 200,
-              height: 100,
-              color: Colors.blue,
-            ),
-          ]),
-    ));
+            padding: EdgeInsets.all(10),
+            color: Colors.yellow[50],
+            width: 500,
+            height: 500,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 150,
+                  child: Container(
+                    width: 300,
+                    height: 300,
+                    color: Colors.red,
+                  ),
+                ),
+                Container(
+                  height: 180,
+                  width: 180,
+                  color: Colors.blue,
+                ),
+                Container(
+                  height: 160,
+                  width: 160,
+                  color: Colors.yellow,
+                ),
+              ],
+            )));
   }
 }
