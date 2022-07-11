@@ -33,17 +33,24 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: ListView.builder(
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          leading: const Icon(Icons.android),
-          title: Text(list[index]),
-          subtitle: Text("我是子标题$index"),
-          trailing: const Icon(Icons.arrow_right_rounded),
-        );
-      },
+        child: Container(
       padding: const EdgeInsets.all(10),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            //固定大小的子元素
+            Container(
+              width: 100,
+              height: 400,
+              color: Colors.red,
+            ),
+            Container(
+              width: 200,
+              height: 100,
+              color: Colors.blue,
+            ),
+          ]),
     ));
   }
 }
