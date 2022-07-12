@@ -10,6 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: '我的app',
+      initialRoute: '/',
+      routes: {
+        "/search": (context) => const MySearchPage(
+              title: '这是路由',
+            ),
+      },
       home: HomePage(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -46,6 +53,12 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            ElevatedButton(
+              child: const Text('跳转到第二页'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/search', arguments: '你好');
+              },
+            ),
           ],
         ),
       ),
@@ -66,7 +79,8 @@ class MySearchPage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         color: Colors.red,
-        child: Text('搜索页$title'),
+        child: Text(
+            '搜索页$title 携带的参数是${ModalRoute.of(context)?.settings.arguments}'),
       ),
     );
   }
