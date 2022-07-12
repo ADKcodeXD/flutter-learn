@@ -1,56 +1,32 @@
 import 'package:flutter/material.dart';
-
-/// 案例1：简单的无限列表示例
+import 'package:provider/provider.dart';
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<UserInfo>.value(
+    value: UserInfo("我是adk", "nickname", 12),
+    child: MyApp(),
+  ));
+}
+
+class UserInfo with ChangeNotifier {
+  String username;
+  String nickname;
+  int age;
+  UserInfo(this.username, this.nickname, this.age);
+  setUsername(String uname) {
+    username = uname;
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '我的app',
-      home: HomePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('你好'),
+        ),
+        body: Text("你的用户名是${Provider.of<UserInfo>(context).username}"),
       ),
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _HomePage();
-  }
-}
-
-class _HomePage extends State<HomePage> {
-  String _msg = "";
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('这是表单'),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(10),
-          child: Column(children: [
-            TextField(
-              decoration:
-                  InputDecoration(hintText: '输入用户名', icon: Icon(Icons.people)),
-              onChanged: (value) {
-                setState(() {
-                  _msg = value;
-                });
-              },
-            ),
-            Text(_msg)
-          ]),
-        ));
   }
 }
