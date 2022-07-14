@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //填入设计稿中设备的屏幕尺寸,单位dp
     return ScreenUtilInit(
-      designSize: const Size(750, 1334),
+      designSize: const Size(375, 750),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
