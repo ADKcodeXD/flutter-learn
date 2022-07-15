@@ -71,6 +71,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Avenir-Book.ttf
           weight: 700
+    - family: MediumFont
+      fonts: 
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 600
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
