@@ -1,0 +1,1 @@
+const SERVER_BASE_URL = 'https://mock.apifox.cn/m1/1124717-0-default';
