@@ -33,9 +33,39 @@ Widget MyTextbutton({
         style: TextStyle(
             fontFamily: fontName,
             color: fontColor,
-            fontSize: 20.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             height: 1),
+      ),
+    ),
+  );
+}
+
+Widget MyImageButton({
+  required VoidCallback voidCallback,
+  required String imageName,
+  double imageSize = 16.0,
+  double containerWidth = 66.0,
+  double containerHeight = 33.0,
+}) {
+  return Container(
+    width: containerWidth,
+    height: containerHeight,
+    child: TextButton(
+      onPressed: voidCallback,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+            color: AppColors.secondaryText,
+            width: 1,
+          ),
+          borderRadius: AppRadius.br5px,
+        ),
+      ),
+      child: Image(
+        image: AssetImage('assets/images/icons-$imageName.png'),
+        width: imageSize,
+        height: imageSize,
       ),
     ),
   );

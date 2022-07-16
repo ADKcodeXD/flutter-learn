@@ -25,16 +25,16 @@ Widget InputTextField({
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: hintText,
-        contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 9),
+        contentPadding: EdgeInsets.fromLTRB(10, 5, 0, 9),
         hintStyle: TextStyle(
             color: AppColors.secondaryText,
-            fontSize: 20.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w600,
             fontFamily: 'MediumFont'),
       ),
       style: TextStyle(
         color: AppColors.secondaryText,
-        fontSize: 18.sp,
+        fontSize: 16.sp,
         fontWeight: FontWeight.w600,
       ),
       maxLines: 1,
