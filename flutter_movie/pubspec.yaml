@@ -48,6 +48,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_screenutil: ^5.0.0
+  fluttertoast: ^8.0.9
+  dio: ^4.0.6
+  cookie_jar: ^3.0.1 #管理cookie的包
+  dio_cookie_manager: ^2.0.0
+  localstorage: ^4.0.0+1 #localstorage 
+  crypto: ^3.0.2 # 加密相关的包
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
