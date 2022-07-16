@@ -87,7 +87,7 @@ class _WelcomePageState extends State<WelcomePage> {
         margin: EdgeInsets.only(bottom: 20.h),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/sign-up');
+            Navigator.pushNamed(context, '/sign-in');
           },
           child: Text('Start'),
           style: ElevatedButton.styleFrom(

@@ -1,24 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/common/constant/constant.dart';
+import 'package:flutter_movie/common/entity/user.dart';
 import 'package:flutter_movie/common/widgets/widgets.dart';
 import 'package:flutter_movie/common/utils/util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class SignUpPage extends StatefulWidget {
+import '../../common/api/apis.dart';
+
+class SignInPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _SignUpPageState();
+    return _SignInPageState();
   }
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   final _PasswordController = TextEditingController();
 
   final _EmailController = TextEditingController();
 
-  void _handleLogin() {
-    print(_EmailController.text);
+  Future<void> _handleLogin() async {
+    if (!checkInputLength(_EmailController.text, 6, 16)) {
+      showMeToast(msg: '用户名的长度需在6-16之间');
+      return;
+    }
+    if (!isEmail(_EmailController.text)) {
+      showMeToast(msg: '邮箱格式不正确');
+      return;
+    }
+    if (!checkInputLength(_PasswordController.text, 6, 16)) {
+      showMeToast(msg: '密码长度也需要在6-16之间');
+      return;
+    }
+    UserLoginRequestEntity userLoginRequestEntity = UserLoginRequestEntity(
+        email: _EmailController.text,
+        password: duSHA256(_PasswordController.text));
+    UserLoginResponseEntity userLoginResponseEntity =
+        await UserApi.login(requestEntity: userLoginRequestEntity);
+    print(userLoginResponseEntity.toJson());
   }
 
   Widget _buildLogo() {
@@ -86,7 +107,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _buildSignUpForm() {
     return Container(
       width: 270.w,
-      margin: EdgeInsets.only(top: 50.h),
+      margin: EdgeInsets.only(top: 30.h),
       child: Column(
         children: [
           InputTextField(
@@ -107,22 +128,69 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildSignUpThirtyLogin() {
-    return Container();
+    return Container(
+      width: 300.w,
+      margin: EdgeInsets.only(top: 20.h),
+      child: Column(
+        children: <Widget>[
+          Text('通过其他账号进行登录？'),
+          Padding(
+            padding: EdgeInsets.all(10.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyImageButton(
+                  imageName: 'google',
+                  voidCallback: _handleLogin,
+                  containerHeight: 44.w,
+                  containerWidth: 88.w,
+                  imageSize: 30.w,
+                ),
+                MyImageButton(
+                  imageName: 'twitter',
+                  voidCallback: _handleLogin,
+                  containerHeight: 44.w,
+                  containerWidth: 88.w,
+                  imageSize: 30.w,
+                ),
+                MyImageButton(
+                  imageName: 'facebook',
+                  voidCallback: _handleLogin,
+                  containerHeight: 44.w,
+                  containerWidth: 88.w,
+                  imageSize: 30.w,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: MyTextbutton(
+                voidCallback: () {
+                  Navigator.pushNamed(context, "/sign-up");
+                },
+                text: '跳转到注册页'),
+          )
+        ],
+      ),
+    );
   }
 
   Widget _buildSignUpButton() {
     return Container(
       width: 270.w,
-      margin: EdgeInsets.only(top: 20.h),
+      margin: EdgeInsets.only(top: 15.h),
       alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MyTextbutton(
-              voidCallback: _handleLogin, width: 120.w, text: 'Sign Up'),
+              voidCallback: _handleLogin,
+              width: 120.w,
+              text: 'register',
+              btnColor: AppColors.darkBackground),
           Spacer(),
           MyTextbutton(
-              voidCallback: _handleLogin, width: 120.w, text: 'register')
+              voidCallback: _handleLogin, width: 120.w, text: 'Sign Up')
         ],
       ),
     );
@@ -132,20 +200,28 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text('Sign Up'),
-      ),
-      body: Center(
+      body: Container(
+          child: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             _buildLogo(),
             _buildSignUpForm(),
-            // Spacer(),
             // _buildSignUpThirtyLogin(),
             _buildSignUpButton(),
+            TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Forget password?',
+                  style: TextStyle(
+                      color: AppColors.primaryElement,
+                      fontSize: 18.sp,
+                      fontFamily: 'Myfont'),
+                )),
+            _buildSignUpThirtyLogin()
           ],
         ),
-      ),
+      )),
     );
   }
 }
