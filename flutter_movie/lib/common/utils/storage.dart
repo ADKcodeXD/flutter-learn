@@ -1,20 +1,27 @@
-import 'package:flutter_movie/common/constant/constant.dart';
-import 'package:localstorage/localstorage.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
+/// 本地存储
 class StorageUtil {
-  static final StorageUtil _singleton = StorageUtil._internal();
-  LocalStorage? _storage;
-  //工厂模式的实例化
-  factory StorageUtil() => _singleton;
-  StorageUtil._internal() {
-    _storage = LocalStorage(STORAGE_MASTER_KEY);
+  static final StorageUtil _instance = StorageUtil._();
+  factory StorageUtil() => _instance;
+  static late SharedPreferences _prefs;
+
+  StorageUtil._();
+
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  String getItem(String key) {
-    return _storage!.getItem(key) ?? '';
+  /// 设置 json 对象
+  Future<bool> setJSON(String key, dynamic jsonVal) {
+    String jsonString = jsonEncode(jsonVal);
+    return _prefs.setString(key, jsonString);
   }
 
-  Future<void> setItem(String key, String value) {
-    return _storage!.setItem(key, value);
+  /// 获取 json 对象
+  dynamic getJSON(String key) {
+    String? jsonString = _prefs.getString(key);
+    return jsonString == null ? null : jsonDecode(jsonString);
   }
 }

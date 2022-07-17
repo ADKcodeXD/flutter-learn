@@ -3,8 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_movie/common/constant/cache.dart';
 import 'package:flutter_movie/common/constant/constant.dart';
+import 'package:flutter_movie/common/utils/net_cache.dart';
 import 'package:flutter_movie/common/utils/storage.dart';
+import 'package:flutter_movie/global.dart';
 
 class HttpUtil {
   static HttpUtil _instance = HttpUtil._internal();
@@ -51,8 +54,11 @@ class HttpUtil {
     // 添加拦截器
     dio!.interceptors.add(InterceptorsWrapper(
         onRequest: ((options, handler) => handler.next(options)),
-        onResponse: ((options, handler) => handler.next(options)),
+        onResponse: ((response, handler) => handler.next(response)),
         onError: ((DioError e, handler) => handler.next(e))));
+
+    //添加缓存拦截器
+    dio!.interceptors.add(NetCache());
   }
 
   ///取消请求操作
@@ -63,7 +69,7 @@ class HttpUtil {
   /// 读取本地配置
   Options getLocalOptions() {
     Options options;
-    String token = StorageUtil().getItem(STORAGE_USER_TOKEN_KEY);
+    String token = StorageUtil().getJSON(STORAGE_USER_TOKEN_KEY) ?? '';
     options = Options(headers: {
       'Authorization': 'Bearer $token',
     });
@@ -151,14 +157,45 @@ class HttpUtil {
     }
   }
 
+
+  /// 读取本地配置
+  Map<String, dynamic> getAuthorizationHeader() {
+    var headers;
+    String accessToken = Global.profile.accessToken;
+    if (accessToken != null) {
+      headers = {
+        'Authorization': 'Bearer $accessToken',
+      };
+    }
+    return headers;
+  }
+
   /// restful get 操作
-  Future get(String path,
-      {dynamic params, Options? options, CancelToken? cancelToken}) async {
+  /// refresh 是否下拉刷新 默认 false
+  /// noCache 是否不缓存 默认 true
+  /// list 是否列表 默认 false
+  /// cacheKey 缓存key
+  Future get(
+    String path, {
+    dynamic params,
+    Options? options,
+    bool refresh = false,
+    bool noCache = !CACHE_ENABLE,
+    bool list = false,
+    String? cacheKey,
+  }) async {
     try {
-      var tokenOptions = options;
+      Options requestOptions = options ?? Options();
+      requestOptions.extra!["noCache"]=noCache;
+      requestOptions.extra!["list"]=list;
+      requestOptions.extra!["cacheKey"]=cacheKey ?? '';
+      requestOptions.extra!["refresh"]=refresh;
+      Map<String, dynamic> _authorization = getAuthorizationHeader();
+      requestOptions.extra!["headers"] = _authorization;
+
       var response = await dio!.get(path,
           queryParameters: params,
-          options: tokenOptions,
+          options: requestOptions,
           cancelToken: cancelToken);
       return response.data;
     } on DioError catch (e) {
