@@ -1,0 +1,3 @@
+const CACHE_ENABLE = true;
+const CACHE_MAXCOUNT = 100;
+const CACHE_MAXAGE = 3600;
