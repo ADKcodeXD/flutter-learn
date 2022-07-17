@@ -3,9 +3,9 @@ import 'package:flutter_movie/pages/welcomepage/welcome.dart';
 import 'package:flutter_movie/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'global.dart';
+
+void main() => Global.init().then((e) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
