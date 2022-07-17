@@ -1,11 +1,14 @@
+import 'package:flutter_movie/common/constant/constant.dart';
+import 'package:flutter_movie/common/utils/util.dart';
+
 /// empty object
 // ignore_for_file: constant_identifier_names
 
 class UserLoginResponseEntity {
   UserLoginResponseEntity({
     required this.accessToken,
-    required this.channels,
-    required this.displayName,
+    this.channels = const <Channel>[],
+    this.displayName = '',
   });
 
   String accessToken;
@@ -28,26 +31,6 @@ class UserLoginResponseEntity {
       };
 }
 
-enum Channel { FOX, NBA, SPORT, GAME, NEWS }
-
-final channelValues = EnumValues({
-  "FOX": Channel.FOX,
-  "GAME": Channel.GAME,
-  "NBA": Channel.NBA,
-  "NEWS": Channel.NEWS,
-  "SPORT": Channel.SPORT
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String>? reverseMap;
-  EnumValues(this.map);
-
-  Map<T, String>? get reverse {
-    reverseMap ??= map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
-}
 
 class UserLoginRequestEntity {
   UserLoginRequestEntity({
