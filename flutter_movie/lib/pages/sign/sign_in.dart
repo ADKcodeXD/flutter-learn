@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie/common/constant/constant.dart';
+import 'package:flutter_movie/common/entity/entity.dart';
 import 'package:flutter_movie/common/entity/user.dart';
 import 'package:flutter_movie/common/widgets/widgets.dart';
 import 'package:flutter_movie/common/utils/util.dart';
+import 'package:flutter_movie/global.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -34,12 +36,14 @@ class _SignInPageState extends State<SignInPage> {
       showMeToast(msg: '密码长度也需要在6-16之间');
       return;
     }
-    UserLoginRequestEntity userLoginRequestEntity = UserLoginRequestEntity(
-        email: _EmailController.text,
-        password: duSHA256(_PasswordController.text));
-    UserLoginResponseEntity userLoginResponseEntity =
-        await UserApi.login(requestEntity: userLoginRequestEntity);
-    print(userLoginResponseEntity.toJson());
+    // UserLoginRequestEntity userLoginRequestEntity = UserLoginRequestEntity(
+    //     email: _EmailController.text,
+    //     password: duSHA256(_PasswordController.text));
+    // UserLoginResponseEntity userLoginResponseEntity =
+    //     await UserApi.login(requestEntity: userLoginRequestEntity);
+    CategoriesResponseEntity categoriesResponseEntity =
+        await NewsApi.getCategory();
+
   }
 
   Widget _buildLogo() {
