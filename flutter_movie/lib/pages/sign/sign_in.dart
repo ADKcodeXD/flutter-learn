@@ -41,9 +41,10 @@ class _SignInPageState extends State<SignInPage> {
     //     password: duSHA256(_PasswordController.text));
     // UserLoginResponseEntity userLoginResponseEntity =
     //     await UserApi.login(requestEntity: userLoginRequestEntity);
-    CategoriesResponseEntity categoriesResponseEntity =
-        await NewsApi.getCategory();
-
+    List<CategoriesResponseEntity> cate = await NewsApi.getCategory();
+    print(cate);
+    print(123456);
+    print("hsuoaihfoushaof");
   }
 
   Widget _buildLogo() {

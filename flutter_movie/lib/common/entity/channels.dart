@@ -16,8 +16,8 @@ class ChannelsResponseEntity {
       );
 
   Map<String, dynamic> toJson() => {
-        "code": codeValues.reverse[code],
-        "title": codeValues.reverse[title],
+        "code": code,
+        "title": title,
       };
 }
 

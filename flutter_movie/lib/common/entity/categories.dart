@@ -16,7 +16,7 @@ class CategoriesResponseEntity {
 
   Map<String, dynamic> toJson() => {
         "code": code,
-        "title": titleValues.reverse[title],
+        "title": title,
       };
 }
 

@@ -26,11 +26,10 @@ class UserLoginResponseEntity {
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
         "channels":
-            List<dynamic>.from(channels.map((x) => channelValues.reverse![x])),
+            List<dynamic>.from(channels.map((x) => channelValues.reverse[x])),
         "display_name": displayName,
       };
 }
-
 
 class UserLoginRequestEntity {
   UserLoginRequestEntity({

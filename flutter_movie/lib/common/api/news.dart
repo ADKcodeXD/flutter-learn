@@ -9,9 +9,11 @@ class NewsApi {
     return NewsResponseEntity.fromJson(response);
   }
 
-  static Future<CategoriesResponseEntity> getCategory() async {
+  static Future<List<CategoriesResponseEntity>> getCategory() async {
     var response = await HttpUtil().get('/categories');
-    return response.map<CategoriesResponseEntity>((json) =>
-        CategoriesResponseEntity.fromJson(json));
+    return response
+        .map<CategoriesResponseEntity>(
+            (item) => CategoriesResponseEntity.fromJson(item))
+        .toList();
   }
 }

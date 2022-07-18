@@ -13,7 +13,7 @@ class TagsResponseEntity {
       );
 
   Map<String, dynamic> toJson() => {
-        "tag": tagValues.reverse[tag],
+        "tag": tag,
       };
 }
 

@@ -142,10 +142,10 @@ class NewsRecommandResponseEntity {
   Map<String, dynamic> toJson() => {
         "addtime": addtime,
         "author": author,
-        "category": categoryValues.reverse[category],
+        "category": category,
         "id": id,
         "thumbnail": thumbnail,
-        "title": titleValues.reverse[title],
+        "title": title,
         "url": url,
       };
 }
@@ -174,3 +174,4 @@ class NewsRecommandRequestEntity {
         "tag": tag,
       };
 }
+

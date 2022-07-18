@@ -157,7 +157,6 @@ class HttpUtil {
     }
   }
 
-
   /// 读取本地配置
   Map<String, dynamic> getAuthorizationHeader() {
     var headers;
@@ -186,13 +185,13 @@ class HttpUtil {
   }) async {
     try {
       Options requestOptions = options ?? Options();
-      requestOptions.extra!["noCache"]=noCache;
-      requestOptions.extra!["list"]=list;
-      requestOptions.extra!["cacheKey"]=cacheKey ?? '';
-      requestOptions.extra!["refresh"]=refresh;
-      Map<String, dynamic> _authorization = getAuthorizationHeader();
-      requestOptions.extra!["headers"] = _authorization;
-
+      requestOptions.extra = {
+        'refresh': refresh,
+        'noCache': noCache,
+        'list': list,
+        'cacheKey': cacheKey,
+      };
+      requestOptions.headers = getAuthorizationHeader();
       var response = await dio!.get(path,
           queryParameters: params,
           options: requestOptions,
